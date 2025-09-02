@@ -1525,19 +1525,22 @@
     </section>
 
     <!-- Contact -->
-    <form class="contact-form reveal" id="contactForm" action="https://formspree.io/f/yourFormID" method="POST">
+    <form class="contact-form reveal" id="contactForm" action="https://formspree.io/f/mpwjjboj" method="POST">
   <div class="form-group">
     <label for="name">Full Name *</label>
-    <input type="text" id="name" name="name" required />
+    <input type="text" id="name" name="name" required placeholder="Enter your full name"/>
   </div>
+
   <div class="form-group">
     <label for="email">Email Address *</label>
-    <input type="email" id="email" name="email" required />
+    <input type="email" id="email" name="email" required placeholder="your.email@company.com"/>
   </div>
+
   <div class="form-group">
     <label for="company">Organization</label>
-    <input type="text" id="company" name="company" />
+    <input type="text" id="company" name="company" placeholder="Your company or institution"/>
   </div>
+
   <div class="form-group">
     <label for="interest">Area of Interest</label>
     <select id="interest" name="interest">
@@ -1550,9 +1553,40 @@
       <option value="media">Media & Press</option>
     </select>
   </div>
+
+  <div class="form-group">
+    <label for="message">Message *</label>
+    <textarea id="message" name="message" required placeholder="Type your message here..."></textarea>
+  </div>
+
   <button type="submit">Send Message</button>
   <p id="form-status"></p>
 </form>
+
+<script>
+const form = document.getElementById("contactForm");
+const status = document.getElementById("form-status");
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const data = new FormData(form);
+  try {
+    const response = await fetch(form.action, {
+      method: form.method,
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    });
+    if (response.ok) {
+      status.textContent = "✅ Thanks! Your message has been sent.";
+      form.reset();
+    } else {
+      status.textContent = ⚠️ Oops! Something went wrong.";
+    }
+  } catch (error) {
+    status.textContent = "⚠️ Network error. Try again.";
+  }
+});
+</script>
                     </div>
                     <div class="form-group">
                         <label for="message">Message *</label>
